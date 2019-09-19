@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="border border-primary mt-1 bg-dark text-white p-3 shadow-md rounded-lg">
+        <p>Add more menu item</p>
+        <form [formGroup]="menu_item_form" (ngSubmit)="onSubmit()">
+          <label>Menu Name</label>
+          <input type="text" class="form-control form-control-sm bg-dark text-white mb-3" placeholder="Itme's name"
+            formControlName="name">
+          <label>Menu Price</label>
+          <input type="number" class="form-control form-control-sm bg-dark text-white mb-3"
+            placeholder="Item's price in Tk" formControlName="price">
+            <button type="submit" class="btn btn-sm btn-block btn-primary">Update</button>
+          </form>
+          <button class="btn btn-sm btn-block btn-danger mt-4" (click)="onDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
