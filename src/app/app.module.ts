@@ -27,6 +27,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { BillComponent } from './bill/bill.component';
 import { httpInterceptorProviders } from './services/httpInterceptor';
 import { SearchTablePipe } from './pipes/search-table.pipe';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import { SearchTablePipe } from './pipes/search-table.pipe';
     MatIconModule,
     ChartsModule,
     MatDialogModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatCardModule
   ],
   providers: [InventoryService, AuthService, httpInterceptorProviders],
   bootstrap: [AppComponent]

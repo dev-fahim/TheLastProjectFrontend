@@ -1,11 +1,17 @@
 <div class="border border-primary mt-1 bg-dark text-white p-3 shadow-md rounded-lg">
   <p>Add more menu item</p>
   <form [formGroup]="menu_item_form" (ngSubmit)="onSubmit()">
-    <label>Menu Name</label>
-    <input type="text" class="form-control form-control-sm bg-dark text-white mb-3" placeholder="Itme's name" formControlName="name">
-    <label>Menu Price</label>
-    <input type="number" class="form-control form-control-sm bg-dark text-white mb-3" placeholder="Item's price in Tk" formControlName="price">
-    <button type="reset" class="btn btn-sm btn-block btn-danger">Reset</button>
-    <button type="submit" class="btn btn-sm btn-block btn-primary">Add one</button>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label class="text-white">Menu Name</mat-label>
+      <input matInput type="text" placeholder="Itme's name" formControlName="name">
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label class="text-white">Menu Price</mat-label>
+      <input matInput type="number" placeholder="Itme's Price" formControlName="price">
+    </mat-form-field>
+    <br>
+    <button type="reset" mat-raised-button color="warn" class="btn-block">Reset</button>
+    <button type="submit" mat-raised-button color="primary" class="btn-block">Add one</button>
   </form>
 </div>

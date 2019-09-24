@@ -1,6 +1,7 @@
 <div class="row">
-  <div class="col-8 mt-1 border border-dark rounded p-3">
-    <mat-form-field>
+  <div class="col-5 mt-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Filter Table</mat-label>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 
@@ -14,32 +15,70 @@
         </ng-container>
 
         <!-- Progress Column -->
-        <ng-container matColumnDef="progress">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-          <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
-        </ng-container>
-
-        <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
           <td mat-cell *matCellDef="let row"> {{row.name}} </td>
         </ng-container>
 
+        <!-- Name Column -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+          <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+        </ng-container>
+
         <!-- Color Column -->
-        <ng-container matColumnDef="color">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
-          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
+        <ng-container matColumnDef="added">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Added </th>
+          <td mat-cell *matCellDef="let row"> {{row.added | date}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onClickFuckingTableData(row)">
         </tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, 100]"></mat-paginator>
     </div>
   </div>
-  <div class="col-3 mt-1 ml-3 border border-dark rounded">
-    fsdfsdf
+  <div class="col-4 mt-2">
+    <table class="table table-hover table-striped  table-bordered" *ngIf="data">
+      <thead>
+        <tr>
+          <th class="text-center">Item</th>
+          <th class="text-center">Price</th>
+          <th colspan="3" class="text-center">Quantity</th>
+          <th class="text-center">Total</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let item of data; let i=index">
+        <td class="align-middle text-center">{{ item.name }}</td>
+        <td class="align-middle text-center">{{ item.price }}</td>
+        <td class="align-middle text-center"><button mat-icon-button color="primary" (click)="onPlus(item)"><mat-icon>add</mat-icon></button></td>
+        <td class="align-middle text-center">{{ item.quantity }}</td>
+        <td class="align-middle text-center"><button mat-icon-button color="warn" (click)="onMinus(item)"><mat-icon>remove</mat-icon></button></td>
+        <td class="align-middle text-center">{{ item.totalPrice }}</td>
+        <td class="align-middle text-center"><button mat-icon-button color="accent" (click)="onRemove(i)"><mat-icon>close</mat-icon></button></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-3 mt-2">
+    <table class="table table-bordered">
+      <tr>
+        <td class="align-middle text-left" colspan="3">Total menu items:</td>
+        <td class="align-middle text-right">{{ data.length }}</td>
+      </tr>
+      <tr>
+        <td class="align-middle text-center">Discount:</td>
+        <td class="align-middle text-center"><button mat-icon-button color="primary"><mat-icon>add</mat-icon></button></td>
+        <td class="align-middle text-center"><button mat-icon-button color="warn"><mat-icon>remove</mat-icon></button></td>
+        <td class="align-middle text-right">0</td>
+      </tr>
+      <tr>
+        <td class="align-middle text-left" colspan="3">Grand total price:</td>
+        <td class="align-middle text-right">{{ grandTotalPrice }}</td>
+      </tr>
+    </table>
+    <button mat-raised-button color="primary" class="btn-block">Submit</button>
   </div>
 </div>

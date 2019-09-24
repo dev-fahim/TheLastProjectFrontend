@@ -1,13 +1,21 @@
 <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
 
 <body class="text-center">
-  <form class="form-signin shadow-lg mt-5 p-4 rounded-lg" [formGroup]="login_form" (ngSubmit)="onSubmit()">
-    <img class="mb-2" src="https://static.vecteezy.com/system/resources/thumbnails/000/275/157/small/10_cmVzdGF1cmFudF9sb2dvLTA0.jpg" alt="" width="200" height="200">
-    <p class="display-4">Sign in</p>
-    <label for="inputEmail" class="sr-only">Username</label>
-    <input type="email" id="inputEmail" class="form-control mb-2" formControlName="username" placeholder="Username" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" formControlName="password" placeholder="Password" required>
-    <button class="btn btn-md btn-dark btn-block" type="submit">Sign in</button>
-  </form>
+  <mat-card class="shadow-lg col-xs-2 col-lg-2 col-md-5 col-sm-12">
+    <img src="../../../assets/Free_Sample_By_Wix7.svg" alt="" width="200" height="200">
+    <mat-card-header>
+      <mat-card-title>Sign in here</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="login_form" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Username</mat-label>
+        <input matInput type="email" formControlName="username" placeholder="Your username" autofocus>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="********">
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="btn-block" type="submit">Sign in</button>
+    </form>
+  </mat-card>
 </body>

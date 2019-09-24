@@ -1,24 +1,18 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MenuGET } from 'src/app/models/menu.model';
+import { MenuService } from 'src/app/services/menu/menu.service';
+import { Router } from '@angular/router';
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
+class MenuBill {
+  totalPrice: number;
+  constructor(public name: string, public price: number, public quantity: number){
+    this.totalPrice = quantity * price;
+  }
 }
 
-/** Constants used to fill up our data base. */
-const COLORS: string[] = [
-  'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-  'aqua', 'blue', 'navy', 'black', 'gray'
-];
-const NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
-];
 @Component({
   selector: 'app-main-app',
   templateUrl: './main-app.component.html',
@@ -26,43 +20,72 @@ const NAMES: string[] = [
 })
 export class MainAppComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['id', 'name', 'price', 'added'];
+  dataSource: MatTableDataSource<MenuGET>;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  totalPrice: [] = [];
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
+  grandTotalPrice: number = 0;
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  discount: number = 0;
+
+  data: MenuBill[] = [];
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  constructor(private _menuService: MenuService, private _router: Router) {
   }
 
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngOnInit(): void{
+    this._menuService.get_all_menu()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource(response);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-}
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+  onClickFuckingTableData(menuData: MenuGET): void{
+    this.data.push(new MenuBill(menuData.name, menuData.price, 1));
+    this.onUpdateGrandtotal();
+  }
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
+  onPlus(item: MenuBill): void{
+    item.quantity += 1;
+    item.totalPrice = item.quantity * item.price;
+    this.onUpdateGrandtotal();
+  }
+
+  onMinus(item: MenuBill): void{
+    if(item.quantity >= 2){
+      item.quantity -= 1;
+      item.totalPrice = item.quantity * item.price;
+      this.onUpdateGrandtotal();
+    }
+  }
+
+  onRemove(index: number): void{
+    this.data.splice(index, 1);
+    this.onUpdateGrandtotal();
+  }
+
+  onUpdateGrandtotal(): void{
+    this.grandTotalPrice = 0;
+    for(let i: number = 0; i < this.data.length; i++) this.grandTotalPrice += this.data[i].totalPrice;
+  }
+
+  onDisctount(i: number): void{
+    if(i == -1){
+      
+    }
+  }
 }
