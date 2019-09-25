@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <p class="display-4">All Bills</p>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let item of bills">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <p class="text-muted">{{ item.added | date }}</p>
+            </mat-panel-title>
+            <mat-panel-description>
+              Total amount: {{ totalPrice(item) }}Tk., Discount: {{ item.discount }}%, Grand Total: {{ totalPrice(item) - totalPrice(item)*item.discount/100 }} Tk.
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <button mat-raised-button color="primary" (click)="onClickItem(item.id)">Edit Bill</button>
+          <mat-nav-list>
+            <mat-list-item *ngFor="let data of item.bill_data">
+              <p mat-line>{{ data.item.name }}</p><p class="float-right">{{ data.quantity }}Pcs.</p>
+              <p mat-line>{{ data.item.price }} Tk.</p>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

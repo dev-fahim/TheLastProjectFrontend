@@ -41,7 +41,7 @@
     </div>
   </div>
   <div class="col-4 mt-2">
-    <table class="table table-hover table-striped  table-bordered" *ngIf="data">
+    <table class="table table-sm table-hover table-striped  table-bordered" *ngIf="data.length != 0; else empty">
       <thead>
         <tr>
           <th class="text-center">Item</th>
@@ -54,13 +54,16 @@
       <tr *ngFor="let item of data; let i=index">
         <td class="align-middle text-center">{{ item.name }}</td>
         <td class="align-middle text-center">{{ item.price }}</td>
-        <td class="align-middle text-center"><button mat-icon-button color="primary" (click)="onPlus(item)"><mat-icon>add</mat-icon></button></td>
+        <td class="align-middle text-center"><button mat-icon-button color="primary" (click)="onPlus(item, i)"><mat-icon>add</mat-icon></button></td>
         <td class="align-middle text-center">{{ item.quantity }}</td>
-        <td class="align-middle text-center"><button mat-icon-button color="warn" (click)="onMinus(item)"><mat-icon>remove</mat-icon></button></td>
+        <td class="align-middle text-center"><button mat-icon-button color="warn" (click)="onMinus(item, i)"><mat-icon>remove</mat-icon></button></td>
         <td class="align-middle text-center">{{ item.totalPrice }}</td>
         <td class="align-middle text-center"><button mat-icon-button color="accent" (click)="onRemove(i)"><mat-icon>close</mat-icon></button></td>
       </tr>
     </table>
+    <ng-template #empty>
+      <p class="display-4">Select items</p>  
+    </ng-template>
   </div>
   <div class="col-3 mt-2">
     <table class="table table-bordered">
@@ -69,16 +72,15 @@
         <td class="align-middle text-right">{{ data.length }}</td>
       </tr>
       <tr>
-        <td class="align-middle text-center">Discount:</td>
-        <td class="align-middle text-center"><button mat-icon-button color="primary"><mat-icon>add</mat-icon></button></td>
-        <td class="align-middle text-center"><button mat-icon-button color="warn"><mat-icon>remove</mat-icon></button></td>
-        <td class="align-middle text-right">0</td>
+        <td class="align-middle text-left">Discount:</td>
+        <td class="align-middle text-center" colspan="2"><input type="number" class="form-control form-control-sm" [(ngModel)]="discount"></td>
+        <td class="align-middle text-right">{{ discount? discount:0 }}</td>
       </tr>
       <tr>
         <td class="align-middle text-left" colspan="3">Grand total price:</td>
-        <td class="align-middle text-right">{{ grandTotalPrice }}</td>
+        <td class="align-middle text-right">{{ grandTotalPrice-(discount/100)*grandTotalPrice }}</td>
       </tr>
     </table>
-    <button mat-raised-button color="primary" class="btn-block">Submit</button>
+    <button mat-raised-button color="primary" class="btn-block" (click)="onSubmitBill()">Submit Bill</button>
   </div>
 </div>

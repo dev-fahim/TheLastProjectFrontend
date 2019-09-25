@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private _authService: AuthService, private _router: Router) { }
 
   ngOnInit() {
-    if(this._authService.isLoggedIn()) this._router.navigate(['/app/main']);
+    if(this._authService.isLoggedIn()) this._router.navigate(['/app/bill/add']);
   }
 
   login_form = new FormGroup({

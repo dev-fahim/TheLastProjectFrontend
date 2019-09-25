@@ -22,7 +22,7 @@ export class AuthService {
     return this._http.post<LoginResponse>(auth_api_endpoints.login, JSON.stringify(payloads)).pipe(
       map((resonse) => {
         localStorage.setItem("token", resonse.token);
-        this._router.navigate(['/app/main']);
+        this._router.navigate(['/app/bill/add']);
         return resonse;
       })
     )

@@ -18,6 +18,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BillComponent } from './bill/bill/bill.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatLineModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
+import { BillEditComponent } from './bill/bill-edit/bill-edit.component';
+import { BillItemEditComponent } from './bill/bill-item-edit/bill-item-edit.component';
+import { MatSelectModule } from '@angular/material/select';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +37,10 @@ import { MatIconModule } from '@angular/material/icon';
     HomeComponent,
     MenuAddComponent,
     MenuEditComponent,
+    BillComponent,
+    BillEditComponent,
+    BillItemEditComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +53,12 @@ import { MatIconModule } from '@angular/material/icon';
     MatSortModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    MatListModule,
+    MatLineModule,
+    MatDividerModule,
+    MatSelectModule
   ]
 })
 

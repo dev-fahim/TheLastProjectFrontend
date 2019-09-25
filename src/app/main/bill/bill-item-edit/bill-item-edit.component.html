@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <p class="display-4">Edit item in Bill</p>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Quantity</mat-label>
+          <input type="text" formControlName="quantity" matInput placeholder="Quantity in number">
+        </mat-form-field><br>
+        <mat-label>Selected Item: {{ item.item.name | titlecase }}, {{ item.item.price }} Tk.</mat-label><br>
+        <mat-form-field appearance="outline">
+          <mat-label>Items</mat-label>
+          <mat-select formControlName="menu">
+            <mat-option *ngFor="let menu of all_menu" [value]="menu.id">
+              {{ menu.name | titlecase }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field><br>
+        <button type="submit" mat-raised-button color="primary">Update</button>
+      </form>
+    </div>
+  </div>
+</div>

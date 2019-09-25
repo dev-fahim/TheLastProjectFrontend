@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 // Chart.js Module
 import { ChartsModule } from 'ng2-charts';
@@ -24,7 +24,6 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { InventoryService } from './services/inventory/inventory.service';
 import { AuthService } from './services/auth/auth.service';
 import { LoginComponent } from './auth/login/login.component';
-import { BillComponent } from './bill/bill.component';
 import { httpInterceptorProviders } from './services/httpInterceptor';
 import { SearchTablePipe } from './pipes/search-table.pipe';
 import { MatInputModule } from '@angular/material/input';
@@ -38,7 +37,6 @@ import { MatCardModule } from '@angular/material/card';
     InfoCardsComponent,
     InfoInsightsComponent,
     LoginComponent,
-    BillComponent,
     SearchTablePipe
   ],
   imports: [
@@ -56,7 +54,11 @@ import { MatCardModule } from '@angular/material/card';
     MatBottomSheetModule,
     MatInputModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'csrftoken',
+      headerName: 'X-CSRFToken',
+    }),
   ],
   providers: [InventoryService, AuthService, httpInterceptorProviders],
   bootstrap: [AppComponent]

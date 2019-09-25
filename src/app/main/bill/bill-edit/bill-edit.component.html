@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+        <p class="display-4">Edit Bill (Bill ID: {{ bill_data.id }})</p>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Discount</mat-label>
+          <input type="number" matInput formControlName="discount" placeholder="Discount in %">
+        </mat-form-field>
+      </form>
+      <mat-nav-list>
+        <mat-list-item *ngFor="let data of bill_data.bill_data" (click)="onClickItem(data.id)">
+          <p mat-line>{{ data.item.name | titlecase }}</p>
+          <p class="float-right">{{ data.quantity }}Pcs.</p>
+          <p mat-line>{{ data.item.price }} Tk.</p>
+          <p mat-line>Total: {{ data.item.price*data.quantity }} Tk.</p>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </div>
+</div>
